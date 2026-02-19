@@ -1,7 +1,13 @@
-import { defineCollection } from 'astro:content';
-import { docsLoader } from '@astrojs/starlight/loaders';
-import { docsSchema } from '@astrojs/starlight/schema';
+import { defineCollection, z } from 'astro:content';
 
-export const collections = {
-	docs: defineCollection({ loader: docsLoader(), schema: docsSchema() }),
-};
+const synadrive = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    pubDate: z.coerce.date().optional(),
+    // Adicione outros campos que você costuma usar no Obsidian
+  }),
+});
+
+export const collections = { 'synadrive': synadrive };
