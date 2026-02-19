@@ -1,0 +1,17 @@
+model:
+  version: 1
+  kind: Table
+  columns: []
+pluginVersion: 1.0.0
+views:
+  - type: cards
+    name: Cards
+    filters:
+      and:
+        - file.folder == "Gamedev/Synadrive"
+    order:
+      - file.name
+    cardSize: 200
+    image: file.file
+  - type: table
+    name: View
