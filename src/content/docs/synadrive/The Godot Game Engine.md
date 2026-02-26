@@ -1,5 +1,4 @@
 ---
-banner: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxqqC7b_ntsDUPW3xvvAjNmMBJ97OvMmFcEA&s
 title: The Godot Game Engine
 ---
 

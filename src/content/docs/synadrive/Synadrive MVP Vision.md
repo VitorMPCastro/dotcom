@@ -1,10 +1,8 @@
 ---
-banner: "![[synadrive-banner.png]]"
 tags:
   - Synadrive
   - vision
   - roadmap
-cover: "![[synadrive-cover.png]]"
 type: vision
 status: active
 created: 2026-02-25

@@ -1,4 +1,4 @@
-import { defineCollection } from 'astro:content';
+import { defineCollection, z } from 'astro:content';
 import { docsLoader } from '@astrojs/starlight/loaders';
 import { docsSchema } from '@astrojs/starlight/schema';
 
@@ -9,14 +9,30 @@ import { docsSchema } from '@astrojs/starlight/schema';
 // sync_to_web.yml GitHub Actions workflow. Do NOT edit those files directly;
 // they are overwritten on every push to the Obsidian vault's main branch.
 //
-// docsSchema() enables all Starlight frontmatter features: template, hero,
-// sidebar.order/badge, pagefind search indexing, prev/next links, ToC, etc.
-// Unknown Obsidian-specific frontmatter fields (banner, cover, tags, etc.)
-// are silently stripped by the schema — this is expected and harmless.
+// docsSchema() enables all Starlight frontmatter features. The `extend` block
+// adds Obsidian-specific fields that are not in the base schema so they pass
+// validation silently instead of being rejected.
+//
+// NOTE: `banner` and `cover` are deliberately NOT listed here because
+// Starlight's built-in banner schema (object type) conflicts with Obsidian's
+// string URL format and `extend` cannot override base fields. Those two fields
+// are stripped at source by the sync_to_web.yml workflow instead.
 
 export const collections = {
   docs: defineCollection({
     loader: docsLoader(),
-    schema: docsSchema(),
+    schema: docsSchema({
+      extend: z.object({
+        // Obsidian-specific fields — silently accepted, not rendered.
+        tags: z.array(z.string()).optional(),
+        type: z.string().optional(),
+        status: z.string().optional(),
+        created: z.coerce.date().optional(),
+        updated: z.coerce.date().optional(),
+        version: z.string().optional(),
+        aliases: z.array(z.string()).optional(),
+        'linter-yaml-title-alias': z.string().optional(),
+      }),
+    }),
   }),
 };

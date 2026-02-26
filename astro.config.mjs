@@ -4,23 +4,25 @@ import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
 import remarkWikiLink from 'remark-wiki-link';
 
+// Base path for GitHub Pages deployment.
+// Set to the repository name so all asset/page paths resolve correctly under
+// github.io/dotcom/. REMOVE and update site to 'https://synadrive.com' once
+// a custom domain is configured in the repository GitHub Pages settings.
+const BASE = '/dotcom';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://vitormpcastro.github.io',
-  // base matches the repository name so all asset/page paths are prefixed
-  // correctly when served from github.io/dotcom/.
-  // REMOVE base and set site to 'https://synadrive.com' once a custom domain
-  // is configured in the repository GitHub Pages settings.
-  base: '/dotcom',
+  base: BASE,
 
   markdown: {
     remarkPlugins: [
-      // Resolve Obsidian [[wikilinks]] to /synadrive/<slug>/ routes.
+      // Resolve Obsidian [[wikilinks]] to /<base>/synadrive/<slug>/ routes.
       // pageResolver: converts link text to a URL slug (lowercase, spaces → hyphens).
-      // hrefTemplate: maps the slug to the final URL path.
+      // hrefTemplate: prefixes the base path so links resolve correctly on GitHub Pages.
       [remarkWikiLink, {
         pageResolver: (name) => [name.toLowerCase().replace(/\s+/g, '-')],
-        hrefTemplate: (permalink) => `/synadrive/${permalink}/`,
+        hrefTemplate: (permalink) => `${BASE}/synadrive/${permalink}/`,
         aliasDivider: '|',
       }],
     ],
