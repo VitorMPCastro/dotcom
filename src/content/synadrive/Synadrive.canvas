@@ -1,0 +1,57 @@
+{
+	"nodes":[
+		{"id":"e2ac344b6bad7174","type":"group","x":-840,"y":940,"width":4260,"height":2740,"color":"6","label":"Synadrive Docs"},
+		{
+			"id":"9246b6268978c1de",
+			"type":"file",
+			"file":"Gamedev/Synadrive/What Is Synadrive.md",
+			"styleAttributes":{
+				"border":null
+			},
+			"x":-60,
+			"y":-40,
+			"width":400,
+			"height":400,
+			"color":"2"
+		},
+		{
+			"id":"6dd587b41cba009d",
+			"type":"text",
+			"text":"# How Synadrive's Docs Hosting Will Work\n```mermaid\ngraph LR\n    subgraph LocalMachine [Your Local Machine]\n        O[Obsidian Vault] -->|Edit /Synadrive/| O\n        O -->|Git Push| VR[Vault Repo]\n    end\n\n    subgraph GitHub [GitHub Actions Pipeline]\n        VR -->|Push Trigger| GA[GitHub Action]\n        GA -->|Filter: Path = Synadrive/| SYNC{Isolate & Copy}\n        SYNC -->|Commit| WR[Website Repo]\n    end\n\n    subgraph Hosting [Live Website]\n        WR -->|Auto Deploy| WEB[Synadrive Live Site]\n    end\n```\n# How Github Actions Will Work\n```mermaid\nsequenceDiagram\n    participant VR as Vault Repo (Private)\n    participant GA as GitHub Runner (Ubuntu)\n    participant WR as Website Repo (Public)\n\n    VR->>GA: Push event detected in /Synadrive/\n    GA->>GA: Checkout Vault Repo\n    GA->>GA: Mask API Secrets (Security)\n    GA->>GA: Filter files (Keep only /Synadrive)\n    GA->>WR: Clone Website Repo to Temp Folder\n    GA->>WR: Copy new .md files to /content\n    GA->>WR: Git Commit & Push\n    Note over WR: Website Repo triggers its own Build (Astro/Hugo)\n```",
+			"styleAttributes":{
+				"shape":null,
+				"textAlign":"center"
+			},
+			"x":1520,
+			"y":960,
+			"width":1880,
+			"height":1440
+		},
+		{
+			"id":"c4c9318774199315",
+			"type":"text",
+			"text":"# I have set up the entire Synadrive folder as a website!",
+			"styleAttributes":{},
+			"x":-760,
+			"y":1000,
+			"width":1160,
+			"height":80
+		}
+	],
+	"edges":[
+		{
+			"id":"32794a365b332f8d",
+			"styleAttributes":{},
+			"toFloating":false,
+			"fromNode":"9246b6268978c1de",
+			"fromSide":"bottom",
+			"toNode":"6dd587b41cba009d",
+			"toSide":"top"
+		}
+	],
+	"metadata":{
+		"version":"1.0-1.0",
+		"frontmatter":{},
+		"startNode":"d3ad0bcf1e3daa07"
+	}
+}
