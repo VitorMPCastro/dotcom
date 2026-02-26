@@ -6,7 +6,12 @@ import remarkWikiLink from 'remark-wiki-link';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://synadrive.com',
+  site: 'https://vitormpcastro.github.io',
+  // base matches the repository name so all asset/page paths are prefixed
+  // correctly when served from github.io/dotcom/.
+  // REMOVE base and set site to 'https://synadrive.com' once a custom domain
+  // is configured in the repository GitHub Pages settings.
+  base: '/dotcom',
 
   markdown: {
     remarkPlugins: [
