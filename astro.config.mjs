@@ -1,32 +1,45 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-
 import tailwindcss from '@tailwindcss/vite';
+import remarkWikiLink from 'remark-wiki-link';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://synadrive.com',
 
+  markdown: {
+    remarkPlugins: [
+      // Resolve Obsidian [[wikilinks]] to /synadrive/<slug>/ routes.
+      // pageResolver: converts link text to a URL slug (lowercase, spaces → hyphens).
+      // hrefTemplate: maps the slug to the final URL path.
+      [remarkWikiLink, {
+        pageResolver: (name) => [name.toLowerCase().replace(/\s+/g, '-')],
+        hrefTemplate: (permalink) => `/synadrive/${permalink}/`,
+        aliasDivider: '|',
+      }],
+    ],
+  },
+
   integrations: [
-      starlight({
-          title: 'Synadrive',
-          social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/TODO-update-with-synadrive-repo-url' }],
-          sidebar: [
-              {
-                  label: 'Guides',
-                  items: [
-                      // Each item here is one entry in the navigation menu.
-                      { label: 'Example Guide', link: '/guides/example/' },
-                  ],
-              },
-              {
-                  label: 'Reference',
-                  autogenerate: { directory: 'reference' },
-              },
-          ],
-      }),
-	],
+    starlight({
+      title: 'Synadrive',
+      // TODO: update href once the public GitHub repository URL is confirmed
+      social: [],
+      sidebar: [
+        {
+          // Auto-synced Obsidian vault docs live here.
+          // Files are populated by the sync_to_web.yml GitHub Actions workflow.
+          label: 'Game Design',
+          autogenerate: { directory: 'synadrive' },
+        },
+        {
+          label: 'Reference',
+          autogenerate: { directory: 'reference' },
+        },
+      ],
+    }),
+  ],
 
   vite: {
     plugins: [tailwindcss()],

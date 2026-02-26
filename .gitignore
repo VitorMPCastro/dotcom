@@ -19,3 +19,7 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# NOTE: src/content/docs/synadrive/ is auto-synced from the Obsidian vault
+# by the sync_to_web.yml GitHub Actions workflow. Do NOT edit files there
+# manually — they are overwritten on every sync push.
