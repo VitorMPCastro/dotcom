@@ -7,12 +7,11 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://synadrive.com',
-  base: '/dotcom',
 
   integrations: [
       starlight({
-          title: 'My Docs',
-          social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+          title: 'Synadrive',
+          social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/TODO-update-with-synadrive-repo-url' }],
           sidebar: [
               {
                   label: 'Guides',
