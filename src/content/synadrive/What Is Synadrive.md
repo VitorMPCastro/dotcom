@@ -3,6 +3,7 @@ banner: https://s1.cdn.autoevolution.com/images/news/mazda-787b-is-gt7-s-gift-to
 tags:
   - Synadrive
 cover: https://s1.cdn.autoevolution.com/images/news/mazda-787b-is-gt7-s-gift-to-anyone-who-does-one-tiny-action-240631_1.jpg
+title: What Is Synadrive
 ---
 
 # What Is Synadrive

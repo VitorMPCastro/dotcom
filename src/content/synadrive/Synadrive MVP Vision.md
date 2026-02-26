@@ -10,11 +10,14 @@ status: active
 created: 2026-02-25
 updated: 2026-02-25
 version: 0.2.0
+title: Synadrive — MVP Vision Document
+aliases: [Synadrive — MVP Vision Document]
+linter-yaml-title-alias: Synadrive — MVP Vision Document
 ---
 
 # Synadrive — MVP Vision Document
 
-> **Canonical source of truth** for Synadrive's feature scope, system designs, and development tiers.
+> **Canonical source of truth** for Synadrive's feature scope, system designs, and development tiers.<br>
 > Referenced by all `.github/copilot-instructions.md` AI instruction files in the codebase.
 
 **Related:** [[What Is Synadrive]] · [[The Godot Game Engine]] · [[Synadrive MVP Vision.canvas]]
@@ -153,6 +156,7 @@ Synadrive follows a **5-tier development roadmap**. Each tier is a complete, pla
 **Description:** The foundation of everything. Realistic sim-level vehicle dynamics built on Jolt Physics 3D. Uses a composition-based architecture where each physics aspect (tires, suspension, aero, drivetrain) is a separate node attached to a `RigidBody3D` vehicle root.
 
 **Architecture:**
+
 ```
 VehicleRoot (RigidBody3D)
 ├── TireFL/FR/RL/RR (TireModel)     — Pacejka Magic Formula
@@ -204,6 +208,7 @@ VehicleRoot (RigidBody3D)
 > **Graphics RT decision:** Synadrive rides Godot's upstream Vulkan RT integration (see "Vulkanised 2026: Integrating Vulkan Ray Tracing into the Godot Engine" by Khronos). No custom graphics RT pipeline. Forward Plus is the baseline renderer. Tracked as an open research item.
 
 **Architecture:**
+
 ```
 RTCore (C++ GDExtension)
 ├── BVHBuilder          — Constructs acceleration structure from scene geometry
@@ -265,6 +270,7 @@ RTCore (C++ GDExtension)
 **Description:** Multi-layered audio system: engine sound synthesis (combustion simulation), tire/surface audio, environment audio, spatial mixing, and audio raytracing integration. Engine sound uses an **AngeTheGreat-style combustion cycle simulation** — per-cylinder synthesis driven by engine RPM, load, and throttle position.
 
 **Architecture:**
+
 ```
 AudioBus (autoload singleton)
 ├── EngineAudioSynth (C++)    — Per-cylinder combustion synthesis
@@ -311,6 +317,7 @@ AudioBus (autoload singleton)
 **Description:** Hybrid AI combining neural networks (ONNX inference) with traditional game AI (behavior trees, state machines). The system has two layers: a **per-agent tree** (inside the vehicle scene) and a **training pipeline** (an orchestrator scene). ONNX inference is shared infrastructure used by both driving AI and dialogue AI.
 
 **Per-Agent Architecture (inside vehicle):**
+
 ```
 AIAgentRoot
 ├── ObservationBuilder       — Vehicle telemetry + track data → observation vector
@@ -322,6 +329,7 @@ AIAgentRoot
 ```
 
 **Training Pipeline Architecture:**
+
 ```
 AITrainer (Node)
 ├── Environment (Node3D) → Track + Vehicle (with AIAgentRoot)
@@ -361,6 +369,7 @@ AITrainer (Node)
 **Description:** Weather and track conditions are **coupled systems** — weather drives track state, track state drives grip. Separating them into different tiers would create a cosmetic-only weather system, so both are Tier 1 at a basic level.
 
 **Architecture:**
+
 ```
 WeatherManager
 ├── PrecipitationModel    — Rain intensity, type (drizzle, heavy, dry)
@@ -425,6 +434,7 @@ TrackConditionManager
 **Description:** Telemetry recording is the foundation for ghost racing and replays. All vehicle state is recorded at physics tick rate and can be played back as a ghost car or full replay.
 
 **Architecture:**
+
 ```
 TelemetryRecorder (per vehicle)
 ├── FrameBuffer[]    — Ring buffer of vehicle states
@@ -484,6 +494,7 @@ ReplaySystem
 The dialogue system handles conversation flow, personality influence on responses, and context awareness (race state, standings, incident history). UI layer could optionally use Dialogic for presentation, but the generation is ONNX-native.
 
 **Architecture:**
+
 ```
 DialogueManager
 ├── ConversationContext   — Current race state, relationship, history
@@ -853,7 +864,7 @@ These are tracked decisions or investigations that don't have a final answer yet
 
 ## Dataview Queries
 
-> [!info] Obsidian-Only Section
+> [!info] Obsidian-Only Section<br>
 > The Dataview queries below are **Obsidian-only** — they require the [Dataview plugin](https://github.com/blacksmithgu/obsidian-dataview) and will render as raw code blocks in any other Markdown viewer (including the Astro docs site). This is expected and harmless.
 
 > These queries work with the frontmatter of this page. As the project grows and features get their own sub-pages, these queries will automatically aggregate data.
