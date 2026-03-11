@@ -195,6 +195,8 @@ VehicleRoot (RigidBody3D)
 - Marco Monster, "Car Physics for Games" (classic reference).
 - Godot `PhysicsServer3D` API for Jolt integration.
 
+**Implementation Plan:** [[Vehicle Physics/Vehicle Physics|→ Tier 1 Vehicle Physics Implementation Plan]]
+
 ---
 
 ### 2. Raytracing (Audio + AI)
